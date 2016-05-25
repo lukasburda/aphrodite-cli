@@ -8,7 +8,7 @@ import org.jboss.set.aphrodite.spi.AphroditeException;
 public class Main {
 
     private static Aphrodite aphrodite;
-    private static String aphroditeConfigPath = "aphrodite.json";
+    private static String configPath = "aphrodite.json";
 
     @Parameter(names = {"--aphroditeconfig", "-ac"}, description = "Change path of aphrodite config", required = false)
     private static String newAphroditePath;
@@ -21,12 +21,11 @@ public class Main {
 
     public static void main(String... args) throws AphroditeException {
         Main main = new Main();
-        if (newAphroditePath != null) {
-            System.setProperty("aphrodite.config", newAphroditePath);
-        } else {
-            System.setProperty("aphrodite.config", aphroditeConfigPath);
-        }
         new JCommander(main, args);
+        if (newAphroditePath != null) {
+            configPath = newAphroditePath;
+        }
+        System.setProperty("aphrodite.config", configPath);
         aphrodite = Aphrodite.instance();
     }
 }
