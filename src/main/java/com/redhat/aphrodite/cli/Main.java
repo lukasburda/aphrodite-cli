@@ -11,7 +11,7 @@ public class Main {
     private static String aphroditeConfigPath = "src/main/resources/aphrodite.json";
 
     @Parameter(names = {"--aphroditeconfig", "-ac"}, description = "Change path of aphrodite config", required = false)
-    String aphroditeConfigPathChange = aphroditeConfigPath;
+    String newAphroditePath;
 
     @Parameter(names = {"--username", "-usr"}, description = "Username for JIRA/BUGZILLA")
     String username;
