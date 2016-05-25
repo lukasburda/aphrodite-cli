@@ -21,6 +21,7 @@ public class Main {
 
     public static void main(String... args) throws AphroditeException {
         Main main = new Main();
+        new JCommander(main, args);
         if (newAphroditePath != null) {
             System.setProperty("aphrodite.config", newAphroditePath);
         } else {
