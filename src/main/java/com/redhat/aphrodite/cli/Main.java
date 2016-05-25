@@ -9,10 +9,9 @@ public class Main {
 
     private static Aphrodite aphrodite;
     private static String aphroditeConfigPath = "aphrodite.json";
-;
 
     @Parameter(names = {"--aphroditeconfig", "-ac"}, description = "Change path of aphrodite config", required = false)
-    private String newAphroditePath;
+    private static String newAphroditePath;
 
     @Parameter(names = {"--username", "-usr"}, description = "Username for JIRA/BUGZILLA")
     private String username;
@@ -22,7 +21,11 @@ public class Main {
 
     public static void main(String... args) throws AphroditeException {
         Main main = new Main();
-        System.setProperty("aphrodite.config", aphroditeConfigPath);
+        if (newAphroditePath != null) {
+            System.setProperty("aphrodite.config", newAphroditePath);
+        } else {
+            System.setProperty("aphrodite.config", aphroditeConfigPath);
+        }
         new JCommander(main, args);
         aphrodite = Aphrodite.instance();
     }
