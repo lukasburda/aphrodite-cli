@@ -8,20 +8,21 @@ import org.jboss.set.aphrodite.spi.AphroditeException;
 public class Main {
 
     private static Aphrodite aphrodite;
+    private static String aphroditeConfigPath = "src/main/resources/aphrodite.json";
 
     @Parameter(names = {"--aphroditeconfig", "-ac"}, description = "Change path of aphrodite config", required = false)
-    String aphroditeConfigPath;
+    String aphroditeConfigPathChange = aphroditeConfigPath;
 
-    @Parameter(names = {"--username", "-usr"}, description = "Username for JIRA", required = true)
+    @Parameter(names = {"--username", "-usr"}, description = "Username for JIRA")
     String username;
 
-    @Parameter(names = {"--password", "-pass"}, description = "Password for JIRA", required = true)
+    @Parameter(names = {"--password", "-pass"}, description = "Password for JIRA")
     String password;
 
     public static void main(String... args) throws AphroditeException {
         Main main = new Main();
+        System.setProperty("aphrodite.config", aphroditeConfigPath);
         new JCommander(main, args);
         aphrodite = Aphrodite.instance();
-       
     }
 }
