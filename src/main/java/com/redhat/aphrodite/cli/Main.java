@@ -13,10 +13,10 @@ public class Main {
     @Parameter(names = {"--aphroditeconfig", "-ac"}, description = "Change path of aphrodite config", required = false)
     String aphroditeConfigPathChange = aphroditeConfigPath;
 
-    @Parameter(names = {"--username", "-usr"}, description = "Username for JIRA")
+    @Parameter(names = {"--username", "-usr"}, description = "Username for JIRA/BUGZILLA")
     String username;
 
-    @Parameter(names = {"--password", "-pass"}, description = "Password for JIRA")
+    @Parameter(names = {"--password", "-pass"}, description = "Password for JIRA/BUGZILLA")
     String password;
 
     public static void main(String... args) throws AphroditeException {
