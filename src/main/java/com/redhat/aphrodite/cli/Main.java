@@ -2,21 +2,26 @@ package com.redhat.aphrodite.cli;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import org.jboss.set.aphrodite.Aphrodite;
+import org.jboss.set.aphrodite.spi.AphroditeException;
 
 public class Main {
 
-    @Parameter(names = {"--username", "-usr"})
+    private static Aphrodite aphrodite;
+
+    @Parameter(names = {"--aphroditeconfig", "-ac"}, description = "Change path of aphrodite config", required = false)
+    String aphroditeConfigPath;
+
+    @Parameter(names = {"--username", "-usr"}, description = "Username for JIRA", required = true)
     String username;
-    @Parameter(names = {"--password", "-pass"})
+
+    @Parameter(names = {"--password", "-pass"}, description = "Password for JIRA", required = true)
     String password;
 
-    public static void main(String... args) {
+    public static void main(String... args) throws AphroditeException {
         Main main = new Main();
         new JCommander(main, args);
-        main.run();
-    }
-
-    public void run() {
-        System.out.printf("%s %s", username, password);
+        aphrodite = Aphrodite.instance();
+       
     }
 }
