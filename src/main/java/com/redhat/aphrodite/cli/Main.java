@@ -5,8 +5,10 @@ import com.beust.jcommander.Parameter;
 
 public class Main {
 
-    @Parameter(names = {"--length", "-l"})
-    int length;
+    @Parameter(names = {"--username", "-usr"})
+    String username;
+    @Parameter(names = {"--password", "-pass"})
+    String password;
 
     public static void main(String... args) {
         Main main = new Main();
@@ -15,6 +17,6 @@ public class Main {
     }
 
     public void run() {
-        System.out.printf("%d", length);
+        System.out.printf("%s %s", username, password);
     }
 }
