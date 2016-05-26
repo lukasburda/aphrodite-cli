@@ -1,9 +1,7 @@
 package com.redhat.aphrodite.cli;
 
-import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.beust.jcommander.converters.BaseConverter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
