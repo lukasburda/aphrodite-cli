@@ -5,41 +5,60 @@ import com.beust.jcommander.Parameter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.jboss.set.aphrodite.Aphrodite;
+import org.jboss.set.aphrodite.config.AphroditeConfig;
+import org.jboss.set.aphrodite.config.IssueTrackerConfig;
+import org.jboss.set.aphrodite.config.TrackerType;
 import org.jboss.set.aphrodite.domain.Issue;
 import org.jboss.set.aphrodite.spi.AphroditeException;
 import org.jboss.set.aphrodite.spi.NotFoundException;
 
 public class Main {
 
+    private static AphroditeConfig config;
+    private static IssueTrackerConfig jiraService;
+    private static IssueTrackerConfig bugzillaService;
     private static Aphrodite aphrodite;
-    private static String configPath = "aphrodite.json";
-
-    @Parameter(names = {"--aphroditeconfig", "-c"}, description = "Change path of aphrodite config")
-    private static String newAphroditePath;
+    private static final String bzPrefix = "bugzilla";
+    private static final String jiraPrefix = "JBEAP-";
 
     @Parameter
     private static List<String> addedParams = new ArrayList<>();
 
-//    @Parameter(names = {"--username", "-u"}, description = "Username for JIRA/BUGZILLA")
-//    private String username;
-//
-//    @Parameter(names = {"--password", "-p"}, description = "Password for JIRA/BUGZILLA", password = true)
-//    private String password;
+    @Parameter(names = {"--aphroditeconfig", "-c"}, description = "Change path of aphrodite config")
+    private static String configPath;
+
+    @Parameter(names = {"--username", "-u"}, description = "Username for JIRA/BUGZILLA")
+    private static String username;
+
+    @Parameter(names = {"--password", "-p"}, description = "Password for JIRA/BUGZILLA", password = true)
+    private static String password;
+
     public static void main(String... args) throws AphroditeException, NotFoundException, MalformedURLException {
         Main main = new Main();
         JCommander jcommander = new JCommander(main, args);
-        if (newAphroditePath != null) {
-            configPath = newAphroditePath;
-        }
-        for (String urls : addedParams) {
+        if (configPath != null) {
             System.setProperty("aphrodite.config", configPath);
             aphrodite = Aphrodite.instance();
+        } else {
+            List<IssueTrackerConfig> issueTrackerConfigs = new ArrayList<>();
+            if (addedParams.get(0).contains(bzPrefix)) {
+                bugzillaService = new IssueTrackerConfig("https://bugzilla.redhat.com/", username, password, TrackerType.BUGZILLA, 200);
+                issueTrackerConfigs.add(bugzillaService);
+            } else if (addedParams.get(0).contains(jiraPrefix)) {
+                jiraService = new IssueTrackerConfig("https://issues.jboss.org", username, password, TrackerType.JIRA, 200);
+                issueTrackerConfigs.add(jiraService);
+            }
+            config = new AphroditeConfig(issueTrackerConfigs, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+            aphrodite = Aphrodite.instance(config);
+        }
+        for (String urls : addedParams) {
             Issue issue = aphrodite.getIssue(new URL(urls));
             System.out.println(printIssue(issue));
-            System.exit(0);
         }
+        System.exit(0);
     }
 
     private static String printIssue(Issue issue) {

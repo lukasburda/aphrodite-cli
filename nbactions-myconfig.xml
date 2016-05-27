@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath com.redhat.aphrodite.cli.Main --username lburda -p https://issues.jboss.org/browse/JBEAP-4000</exec.args>
+                <exec.args>-classpath %classpath com.redhat.aphrodite.cli.Main --username lburda@redhat.com -p https://bugzilla.redhat.com/show_bug.cgi?id=1234567</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +24,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.redhat.aphrodite.cli.Main --username lburda -p https://issues.jboss.org/browse/JBEAP-4000</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath com.redhat.aphrodite.cli.Main --username lburda@redhat.com -p https://bugzilla.redhat.com/show_bug.cgi?id=1234567</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath com.redhat.aphrodite.cli.Main --username lburda -p https://issues.jboss.org/browse/JBEAP-4000</exec.args>
+                <exec.args>-classpath %classpath com.redhat.aphrodite.cli.Main --username lburda@redhat.com -p https://bugzilla.redhat.com/show_bug.cgi?id=1234567</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
