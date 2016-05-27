@@ -21,8 +21,8 @@ public class Main {
     private static IssueTrackerConfig jiraService;
     private static IssueTrackerConfig bugzillaService;
     private static Aphrodite aphrodite;
-    private static final String bzPrefix = "bugzilla";
-    private static final String jiraPrefix = "JBEAP-";
+    private static final String bzPrefix = "https://bugzilla.redhat.com/show_bug.cgi?id=";
+    private static final String jiraPrefix = "https://issues.jboss.org/browse/JBEAP-";
 
     @Parameter
     private static List<String> addedParams = new ArrayList<>();
