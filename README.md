@@ -1,5 +1,5 @@
 # Aphrodite CLI
-- Authors: Lukas Burda, Matej Beranek
+- Author: Lukas Burda
 - Country: Czech Republic
 - Company: RedHat
 - Year: 2016
